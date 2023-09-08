@@ -1,0 +1,2 @@
+cd ~/;
+emulator @and80 &

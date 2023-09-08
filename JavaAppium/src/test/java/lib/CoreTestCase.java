@@ -5,6 +5,8 @@ import junit.framework.TestCase;
 import lib.ui.WelcomePageObject;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 import java.time.Duration;
 
 public class CoreTestCase extends TestCase {
@@ -12,7 +14,7 @@ public class CoreTestCase extends TestCase {
     private static final String PLATFORM_IOS = "ios";
     private static final String PLATFORM_ANDROID = "android";
 
-    protected AppiumDriver driver;
+    protected RemoteWebDriver driver;
 
     @Override
     protected void setUp() throws Exception {
@@ -31,17 +33,34 @@ public class CoreTestCase extends TestCase {
         super.tearDown();
     }
 
-    protected void rotateScreenPortrait() {
-        driver.rotate(ScreenOrientation.PORTRAIT);
+    protected void rotateScreenPortrait()
+    {
+        if (driver instanceof AppiumDriver){
+          AppiumDriver driver = (AppiumDriver) this.driver;
+          driver.rotate(ScreenOrientation.PORTRAIT);
+        } else {
+            System.out.println("Method rotateScreenPortrait() does nothing for platform " + Platform.getInstance().getPlatformVar());
+        }
     }
 
-    protected void rotateScreenPLandscape() {
-        driver.rotate(ScreenOrientation.LANDSCAPE);
-    }
+    protected void rotateScreenPLandscape()
+    {
+        if (driver instanceof AppiumDriver){
+            AppiumDriver driver = (AppiumDriver) this.driver;
+            driver.rotate(ScreenOrientation.LANDSCAPE);
+    } else {
+            System.out.println("Method rotateScreenPLandscape() does nothing for platform " + Platform.getInstance().getPlatformVar());
+        }
 
-    protected void backgroundApp(int seconds) {
-        driver.runAppInBackground(Duration.ofSeconds(seconds));
-    }
+    protected void backgroundApp(int seconds)
+        {
+            if (driver instanceof AppiumDriver){
+                AppiumDriver driver = (AppiumDriver) this.driver;
+                driver.runAppInBackground(Duration.ofSeconds(seconds));
+            } else {
+                System.out.println("Method backgroundApp() does nothing for platform " + Platform.getInstance().getPlatformVar());
+            }
+        }
 
     private void skipWelcomePageForIOSApp() {
         if (Platform.getInstance().isiOS()) {
