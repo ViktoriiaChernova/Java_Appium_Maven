@@ -2,6 +2,7 @@ package lib.ui.ios;
 
 import io.appium.java_client.AppiumDriver;
 import lib.ui.ArticlePageObject;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class iOSArticlePageObject extends ArticlePageObject
 {
@@ -20,7 +21,7 @@ public class iOSArticlePageObject extends ArticlePageObject
        // SNACKBAR_VIEW_LIST_BUTTON = "xpath://*[@resource-id='org.wikipedia:id/snackbar_action'][@text='VIEW LIST']";
     }
 
-    public iOSArticlePageObject(AppiumDriver driver)
+    public iOSArticlePageObject(RemoteWebDriver driver)
     {
         super(driver);
     }

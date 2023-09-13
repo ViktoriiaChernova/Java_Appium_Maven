@@ -6,6 +6,7 @@ import lib.ui.WelcomePageObject;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import sun.management.snmp.jvminstr.JvmOSImpl;
 
 import java.time.Duration;
 
@@ -21,6 +22,7 @@ public class CoreTestCase extends TestCase {
         super.setUp();
         driver = Platform.getInstance().getDriver();
         this.rotateScreenPortrait();
+        this.openWikiWebPageForMobileWeb();
         this.skipWelcomePageForIOSApp();
         this.skipWelcomePageForAndroidApp();
 
@@ -43,14 +45,14 @@ public class CoreTestCase extends TestCase {
         }
     }
 
-    protected void rotateScreenPLandscape()
-    {
-        if (driver instanceof AppiumDriver){
+    protected void rotateScreenPLandscape() {
+        if (driver instanceof AppiumDriver) {
             AppiumDriver driver = (AppiumDriver) this.driver;
             driver.rotate(ScreenOrientation.LANDSCAPE);
-    } else {
+        } else {
             System.out.println("Method rotateScreenPLandscape() does nothing for platform " + Platform.getInstance().getPlatformVar());
         }
+    }
 
     protected void backgroundApp(int seconds)
         {
@@ -59,6 +61,15 @@ public class CoreTestCase extends TestCase {
                 driver.runAppInBackground(Duration.ofSeconds(seconds));
             } else {
                 System.out.println("Method backgroundApp() does nothing for platform " + Platform.getInstance().getPlatformVar());
+            }
+        }
+
+        protected void openWikiWebPageForMobileWeb()
+        {
+            if(Platform.getInstance().isMW()) {
+                driver.get("https://en.m.wikipedia.org");
+            } else {
+                System.out.println("Method openWikiWebPageForMobileWeb() does nothing for platform " + Platform.getInstance().getPlatformVar());
             }
         }
 

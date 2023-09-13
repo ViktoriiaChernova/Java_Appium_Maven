@@ -4,6 +4,7 @@ import io.appium.java_client.AppiumDriver;
 import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 abstract public class ArticlePageObject extends  MainPageObject
 {
@@ -22,7 +23,7 @@ abstract public class ArticlePageObject extends  MainPageObject
     CLOSE_ARTICLE_BUTTON,
     SNACKBAR_VIEW_LIST_BUTTON;
 
-    public ArticlePageObject(AppiumDriver driver)
+    public ArticlePageObject(RemoteWebDriver driver)
     {
         super(driver);
     }

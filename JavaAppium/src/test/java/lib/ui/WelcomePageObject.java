@@ -2,6 +2,7 @@ package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class WelcomePageObject extends MainPageObject
 {
@@ -16,7 +17,7 @@ public class WelcomePageObject extends MainPageObject
     SKIP_ANDROID = "xpath://*[contains(@text,'SKIP')]";
 
 
-    public WelcomePageObject(AppiumDriver driver)
+    public WelcomePageObject(RemoteWebDriver driver)
     {
         super(driver);
     }
