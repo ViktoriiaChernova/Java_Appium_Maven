@@ -2,10 +2,7 @@ package Tests;
 
 import lib.CoreTestCase;
 import lib.Platform;
-import lib.ui.ArticlePageObject;
-import lib.ui.MyListsPageObject;
-import lib.ui.NavigationUI;
-import lib.ui.SearchPageObject;
+import lib.ui.*;
 import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListsPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
@@ -16,6 +13,10 @@ import org.openqa.selenium.By;
 public class MyListTests extends CoreTestCase
 {
     private static final String name_of_folder = "Learning programming";
+    private static final String
+    login = "Viktoriiatest",
+    password = "autotest";
+
     @Test
     public void testSaveFirstArticleToMyList()
     {
@@ -23,7 +24,7 @@ public class MyListTests extends CoreTestCase
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
@@ -38,7 +39,24 @@ public class MyListTests extends CoreTestCase
             ArticlePageObject.closeArticle();
         }
 
+        if (Platform.getInstance().isMW()) {
+            AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            Auth.clickAuthButton();
+            Auth.enterLoginData(login, password);
+            Auth.submitForm();
+
+            ArticlePageObject.waitForTitleElement();
+
+            assertEquals("We are not on the same page after login",
+                    article_title,
+                    ArticlePageObject.getArticleTitle()
+            );
+
+            ArticlePageObject.addArticlesToMySaved();
+        }
+
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+        NavigationUI.openNavigation();
         NavigationUI.clickSavedInMyList();
 
         MyListsPageObject MyListPageObject = MyListsPageObjectFactory.get(driver);

@@ -13,7 +13,6 @@ abstract public class ArticlePageObject extends  MainPageObject
     TITLE,
     FOOTER_ELEMENT,
     SAVE_BUTTON,
-
     CANCEL_BUTTON,
     PAGE_SAVE_BUTTON,
     NAME_OF_FOLDER,
@@ -21,7 +20,8 @@ abstract public class ArticlePageObject extends  MainPageObject
     MY_LIST_NAME_INPUT,
     MY_LIST_OK_BUTTON,
     CLOSE_ARTICLE_BUTTON,
-    SNACKBAR_VIEW_LIST_BUTTON;
+    SNACKBAR_VIEW_LIST_BUTTON,
+    OPTIONS_REMOVE_FROM_MY_LIST_BUTTON;
 
     public ArticlePageObject(RemoteWebDriver driver)
     {
@@ -38,10 +38,11 @@ abstract public class ArticlePageObject extends  MainPageObject
         WebElement title_element = waitForTitleElement();
         if (Platform.getInstance().isAndroid()){
             return title_element.getAttribute("text");
-        } else {
+        } else if (Platform.getInstance().isiOS()) {
             return  title_element.getAttribute("name");
+        } else {
+            return  title_element.getText();
         }
-
     }
 
     public void swipeToFooter()
@@ -51,10 +52,16 @@ abstract public class ArticlePageObject extends  MainPageObject
                     FOOTER_ELEMENT,
                     "Cannot find the end of article",
                     40);
-        } else {
+        } else if (Platform.getInstance().isiOS()) {
             this.swipeUpTitleElementAppear(FOOTER_ELEMENT,
                     "Cannot find the end of article",
                      40);
+        } else {
+            this.scrollWebPageTitleElementNotVisible(
+                    FOOTER_ELEMENT,
+                    "Cannot find the end of article",
+                    40
+            );
         }
     }
 
@@ -125,7 +132,7 @@ abstract public class ArticlePageObject extends  MainPageObject
                     CLOSE_ARTICLE_BUTTON,
                     "Cannot close article, cannot click back button",
                     5);
-        } else {
+        } else if (Platform.getInstance().isiOS()) {
             this.waitForElementAndClick(
                     CLOSE_ARTICLE_BUTTON,
                     "Cannot close article, cannot click back button",
@@ -134,11 +141,32 @@ abstract public class ArticlePageObject extends  MainPageObject
                     CANCEL_BUTTON,
                     "Cannot close article, cannot click CANCEL button",
                     10);
+        } else {
+            System.out.println("Method closeArticle() does nothing for platform " + Platform.getInstance().getPlatformVar());
         }
     }
 
     public void addArticlesToMySaved()
     {
+        if (Platform.getInstance().isMW()) {
+            this.removeArticleFromSavedIfItAdded();
+        }
         this.waitForElementAndClick(SAVE_BUTTON, "Cannot find SAVE button", 10);
+    }
+
+    public void removeArticleFromSavedIfItAdded ()
+    {
+        if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
+            this.waitForElementAndClick(
+                    OPTIONS_REMOVE_FROM_MY_LIST_BUTTON,
+                    "Cannot click button to remove an article from saved",
+                    1
+            );
+            this.waitForElementPresent(
+                    SAVE_BUTTON,
+                    "Cannot find save button",
+                    10
+            );
+        }
     }
 }
