@@ -151,7 +151,7 @@ abstract public class ArticlePageObject extends  MainPageObject
         if (Platform.getInstance().isMW()) {
             this.removeArticleFromSavedIfItAdded();
         }
-        this.waitForElementAndClick(SAVE_BUTTON, "Cannot find SAVE button", 10);
+        this.waitForElementAndClick(SAVE_BUTTON, "Cannot find SAVE button", 30);
     }
 
     public void removeArticleFromSavedIfItAdded ()

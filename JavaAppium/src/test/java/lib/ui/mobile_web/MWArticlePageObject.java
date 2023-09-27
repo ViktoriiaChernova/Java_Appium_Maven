@@ -8,7 +8,7 @@ public class MWArticlePageObject extends ArticlePageObject {
     static {
         TITLE = "css:#content h1";
         FOOTER_ELEMENT = "css:footer";
-        SAVE_BUTTON = "xpath://a[span='Watch']"; //локатор через id
+        SAVE_BUTTON = "xpath://a[span='Watch']"; //локатор через id span
         OPTIONS_REMOVE_FROM_MY_LIST_BUTTON = "xpath://a[span='Unwatch']";
         //CANCEL_BUTTON = "xpath://XCUIElementTypeStaticText[@name='Cancel']";
        // CLOSE_ARTICLE_BUTTON ="xpath://XCUIElementTypeButton[@name='Search']";

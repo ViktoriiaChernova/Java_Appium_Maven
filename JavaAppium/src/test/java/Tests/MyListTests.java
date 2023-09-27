@@ -51,9 +51,9 @@ public class MyListTests extends CoreTestCase
                     article_title,
                     ArticlePageObject.getArticleTitle()
             );
-
-            ArticlePageObject.addArticlesToMySaved();
         }
+
+        ArticlePageObject.addArticlesToMySaved();
 
         NavigationUI NavigationUI = NavigationUIFactory.get(driver);
         NavigationUI.openNavigation();
@@ -79,7 +79,7 @@ public class MyListTests extends CoreTestCase
 
         SearchPageObject.initSearchInput();
         SearchPageObject.typeSearchLine("Java");
-        SearchPageObject.clickByArticleWithSubstring("Object-oriented programming language");
+        SearchPageObject.clickByArticleWithSubstring("bject-oriented programming language");
 
         ArticlePageObject ArticlePageObject = ArticlePageObjectFactory.get(driver);
         ArticlePageObject.waitForTitleElement();
@@ -90,6 +90,21 @@ public class MyListTests extends CoreTestCase
         } else {
             ArticlePageObject.addArticlesToMySaved();
             ArticlePageObject.closeArticle();
+        }
+
+        if (Platform.getInstance().isMW()) {
+            AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            Auth.clickAuthButton();
+            Auth.enterLoginData(login, password);
+            Auth.submitForm();
+
+            ArticlePageObject.waitForTitleElement();
+
+            assertEquals("We are not on the same page after login",
+                    article_title,
+                    ArticlePageObject.getArticleTitle()
+            );
+            ArticlePageObject.addArticlesToMySaved();
         }
 
         SearchPageObject.initSearchInput();
