@@ -19,6 +19,7 @@ public class MyListTests extends CoreTestCase
 
     @Test
     public void testSaveFirstArticleToMyList()
+
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
 
@@ -113,10 +114,16 @@ public class MyListTests extends CoreTestCase
 
         if(Platform.getInstance().isAndroid()) {
             ArticlePageObject.addArticleToExistingList(name_of_folder);
+        } else if (Platform.getInstance().isiOS()) {
+            ArticlePageObject.addArticlesToMySaved();
+            ArticlePageObject.closeArticle();
+            NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+            NavigationUI.clickSavedInMyList();
         } else {
             ArticlePageObject.addArticlesToMySaved();
             ArticlePageObject.closeArticle();
             NavigationUI NavigationUI = NavigationUIFactory.get(driver);
+            NavigationUI.openNavigation();
             NavigationUI.clickSavedInMyList();
         }
 
@@ -126,7 +133,14 @@ public class MyListTests extends CoreTestCase
         }
 
         MyListPageObject.swipeByArticleToDelete("Java (programming language)");
-        SearchPageObject.clickByArticleWithSubstring("Automation for Apps");
-        SearchPageObject.assertElementContainsText("Appium");
+
+        if (Platform.getInstance().isAndroid() || Platform.getInstance().isiOS()) {
+            SearchPageObject.clickByArticleWithSubstring("Automation for Apps");
+            SearchPageObject.assertElementContainsText("Appium");
+        } else {
+            MyListPageObject.clickArticleTitleInMyListMW();
+            ArticlePageObject.waitForTitleElement();
+
+        }
     }
 }

@@ -11,7 +11,8 @@ abstract public class MyListsPageObject extends MainPageObject {
     FOLDER_BY_NAME_TPL,
     ARTICLE_BY_TITLE_TPL,
     CLOSE_BUTTON_LOG_IN_WINDOW,
-    REMOVE_FROM_SAVED_BUTTON;
+    REMOVE_FROM_SAVED_BUTTON,
+    TITLE_ELEMENT_IN_MY_LIST_MW;
 
 
     private static String getFolderXpathByName(String name_of_folder)
@@ -86,6 +87,11 @@ abstract public class MyListsPageObject extends MainPageObject {
         }
 
         if (Platform.getInstance().isMW()) {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             driver.navigate().refresh();
         }
 
@@ -95,5 +101,10 @@ abstract public class MyListsPageObject extends MainPageObject {
     public void closeLogInWindow()
     {
         this.waitForElementAndClick(CLOSE_BUTTON_LOG_IN_WINDOW, "Cannot close log in window on Saved", 15 );
+    }
+
+    public void clickArticleTitleInMyListMW()
+    {
+        this.waitForElementAndClick(TITLE_ELEMENT_IN_MY_LIST_MW, "Cannot find the second article in my list", 10);
     }
 }

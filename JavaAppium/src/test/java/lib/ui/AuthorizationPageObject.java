@@ -25,5 +25,8 @@ public class AuthorizationPageObject extends MainPageObject {
 
     public void submitForm() {
         this.waitForElementAndClick(SUBMIT_BUTTON, "Cannot find and click submit auth button", 10);
+        String url = driver.getCurrentUrl();
+        String new_url = url.substring(0,11) + "m." + url.substring(11);
+        driver.get(new_url);
     }
 }
