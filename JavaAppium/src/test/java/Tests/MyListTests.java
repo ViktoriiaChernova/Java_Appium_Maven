@@ -43,6 +43,11 @@ public class MyListTests extends CoreTestCase
 
         if (Platform.getInstance().isMW()) {
             AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Auth.clickAuthButton();
             Auth.enterLoginData(login, password);
             Auth.submitForm();
@@ -96,6 +101,11 @@ public class MyListTests extends CoreTestCase
 
         if (Platform.getInstance().isMW()) {
             AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Auth.clickAuthButton();
             Auth.enterLoginData(login, password);
             Auth.submitForm();

@@ -10,12 +10,13 @@ public class AuthorizationPageObject extends MainPageObject {
             SUBMIT_BUTTON = "css:button#wpLoginAttempt"; // если у button class есть id
 
     public AuthorizationPageObject(RemoteWebDriver driver) {
+
         super(driver);
     }
 
     public void clickAuthButton() {
-        this.waitForElementPresent(LOGIN_BUTTON, "Cannot find auth button", 10);
-        this.waitForElementAndClick(LOGIN_BUTTON, "Cannot find and click auth button", 10);
+        this.waitForElementPresent(LOGIN_BUTTON, "Cannot find auth button", 20);
+        this.waitForElementAndClick(LOGIN_BUTTON, "Cannot find and click auth button", 30);
     }
 
     public void enterLoginData(String login, String password) {
