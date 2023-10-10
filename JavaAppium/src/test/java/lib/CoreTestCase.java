@@ -1,6 +1,7 @@
 package lib;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import junit.framework.TestCase;
 import lib.ui.WelcomePageObject;
 import org.junit.After;
@@ -19,6 +20,7 @@ public class CoreTestCase {
     protected RemoteWebDriver driver;
 
     @Before
+    @Step("Run driver and session")
     public void setUp() throws Exception {
         driver = Platform.getInstance().getDriver();
         this.rotateScreenPortrait();
@@ -30,12 +32,14 @@ public class CoreTestCase {
 
 
     @After
+    @Step("Remove driver and session")
     public void tearDown()
     {
         driver.quit();
     }
 
-    protected void rotateScreenPortrait()
+   @Step("Rotate screen to portrait mode")
+   protected void rotateScreenPortrait()
     {
         if (driver instanceof AppiumDriver){
           AppiumDriver driver = (AppiumDriver) this.driver;
@@ -45,6 +49,7 @@ public class CoreTestCase {
         }
     }
 
+    @Step("Rotate screen to landscape mode")
     protected void rotateScreenPLandscape() {
         if (driver instanceof AppiumDriver) {
             AppiumDriver driver = (AppiumDriver) this.driver;
@@ -54,6 +59,7 @@ public class CoreTestCase {
         }
     }
 
+    @Step("Send mobile app to background (this method does nothing for mobile web")
     protected void backgroundApp(int seconds)
         {
             if (driver instanceof AppiumDriver){
@@ -64,7 +70,8 @@ public class CoreTestCase {
             }
         }
 
-        protected void openWikiWebPageForMobileWeb()
+    @Step("Open Wiki URL for mobile web (this method does nothing for Android and iOS")
+    protected void openWikiWebPageForMobileWeb()
         {
             if(Platform.getInstance().isMW()) {
                 driver.get("https://en.m.wikipedia.org");
@@ -73,6 +80,7 @@ public class CoreTestCase {
             }
         }
 
+    @Step("Skip welcome page screen for iOS")
     private void skipWelcomePageForIOSApp() {
         if (Platform.getInstance().isiOS()) {
             WelcomePageObject WelcomePageObject = new WelcomePageObject(driver);

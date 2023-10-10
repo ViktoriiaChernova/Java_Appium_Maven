@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -28,11 +29,13 @@ abstract public class ArticlePageObject extends  MainPageObject
         super(driver);
     }
 
+    @Step("Waiting for title on the article page")
     public WebElement waitForTitleElement()
     {
        return  this.waitForElementPresent(TITLE, "Cannot find article title on page", 40 );
     }
 
+    @Step("Get article title")
     public String getArticleTitle()
     {
         WebElement title_element = waitForTitleElement();
@@ -45,6 +48,7 @@ abstract public class ArticlePageObject extends  MainPageObject
         }
     }
 
+    @Step("Swiping to footer on article page")
     public void swipeToFooter()
     {
         if (Platform.getInstance().isAndroid()){
@@ -65,6 +69,7 @@ abstract public class ArticlePageObject extends  MainPageObject
         }
     }
 
+    @Step("Adding the article to my list")
     public void addArticleToMyList(String name_of_folder)
     {
         this.waitForElementAndClick(
@@ -93,6 +98,7 @@ abstract public class ArticlePageObject extends  MainPageObject
         );
     }
 
+    @Step("Adding the article to existing list")
     public void addArticleToExistingList(String name_of_folder) {
 
         this.waitForElementPresent(
@@ -125,6 +131,7 @@ abstract public class ArticlePageObject extends  MainPageObject
         );
     }
 
+    @Step("Closing article")
     public void closeArticle()
     {
         if (Platform.getInstance().isAndroid()) {
@@ -146,6 +153,7 @@ abstract public class ArticlePageObject extends  MainPageObject
         }
     }
 
+    @Step("Adding the article to my saved")
     public void addArticlesToMySaved()
     {
         if (Platform.getInstance().isMW()) {
@@ -154,6 +162,7 @@ abstract public class ArticlePageObject extends  MainPageObject
         this.waitForElementAndClick(SAVE_BUTTON, "Cannot find SAVE button", 20);
     }
 
+    @Step("Removing the article from saved if it has been added")
     public void removeArticleFromSavedIfItAdded ()
     {
         if (this.isElementPresent(OPTIONS_REMOVE_FROM_MY_LIST_BUTTON)) {
