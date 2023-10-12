@@ -1,5 +1,7 @@
 package Tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.ui.SearchPageObject;
 import lib.ui.factories.SearchPageObjectFactory;
@@ -9,6 +11,11 @@ import org.openqa.selenium.By;
 
 public class SearchTests extends CoreTestCase {
     @Test
+    @Features(value = {@Feature(value ="Search")})
+    @DisplayName("Search article")
+    @Description("Searching article")
+    @Step("Starting test testSearch")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void testSearch()
     {
 
@@ -19,7 +26,13 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.waitForSearchResult("bject-oriented programming language");
 
     }
+
     @Test
+    @Features(value = {@Feature(value ="Search")})
+    @DisplayName("Cancel searching")
+    @Description("Canceling searching")
+    @Step("Starting test testCancelSearch")
+    @Severity(value = SeverityLevel.CRITICAL)
     public void testCancelSearch()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -31,7 +44,13 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.waitForCancelButtonToDisappear();
 
     }
+
     @Test
+    @Features(value = {@Feature(value ="Search")})
+    @DisplayName("Check amount of search results")
+    @Description("Checking search results are not empty")
+    @Step("Starting test testAmountOfNotEmptySearch")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testAmountOfNotEmptySearch()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -46,7 +65,13 @@ public class SearchTests extends CoreTestCase {
         );
 
     }
+
     @Test
+    @Features(value = {@Feature(value ="Search")})
+    @DisplayName("Check no results page")
+    @Description("Checking page contains no results of search")
+    @Step("Starting test testAmountOfEmptySearch")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testAmountOfEmptySearch()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -56,14 +81,26 @@ public class SearchTests extends CoreTestCase {
         SearchPageObject.waitForEmptyResultsLabel();
         SearchPageObject.assertThereIsNoResultOfSearch();
     }
+
     @Test
+    @Features(value = {@Feature(value ="Search")})
+    @DisplayName("Check search input")
+    @Description("Checking search input contains placeholder")
+    @Step("Starting test testElementContainsText")
+    @Severity(value = SeverityLevel.MINOR)
     public void testElementContainsText()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         String expected_text = "Search Wikipedia";
         SearchPageObject.assertElementContainsText(expected_text);
     }
+
     @Test
+    @Features(value = {@Feature(value ="Search")})
+    @DisplayName("Search title and cancel search")
+    @Description("Searching title, checking search results and canceling search")
+    @Step("Starting test testSearchTitleAndCancelSearch")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testSearchTitleAndCancelSearch()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -77,6 +114,11 @@ public class SearchTests extends CoreTestCase {
     }
 
     @Test
+    @Features(value = {@Feature(value ="Search"),@Feature(value ="Article"),@Feature(value ="My list")})
+    @DisplayName("Check searching title contains word")
+    @Description("Checking searching title contains expected word")
+    @Step("Starting test testSearchTitleContainsWord")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void testSearchTitleContainsWord()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);

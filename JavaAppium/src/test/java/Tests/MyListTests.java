@@ -1,5 +1,7 @@
 package Tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -19,6 +21,11 @@ public class MyListTests extends CoreTestCase
     password = "autotest";
 
     @Test
+    @Features(value = {@Feature(value ="Search"),@Feature(value ="Article"),@Feature(value ="My list")})
+    @DisplayName("Save article to my list")
+    @Description("Saving article to my list")
+    @Step("Starting test testSaveFirstArticleToMyList")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testSaveFirstArticleToMyList()
 
     {
@@ -80,6 +87,11 @@ public class MyListTests extends CoreTestCase
     }
 
     @Test
+    @Features(value = {@Feature(value ="Search"),@Feature(value ="Article"),@Feature(value ="My list")})
+    @DisplayName("Save two articles to my list")
+    @Description("Saving two articles to my list and deleting one of it")
+    @Step("Starting test testSaveTwoArticlesToMyList")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testSaveTwoArticlesToMyList()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
